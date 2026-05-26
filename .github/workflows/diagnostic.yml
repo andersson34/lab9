@@ -1,0 +1,14 @@
+name: diagnostic-actions
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo diagnostic
+        run: echo "diagnostic workflow executed"
