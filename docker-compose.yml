@@ -1,0 +1,36 @@
+services:
+  ocr-service:
+    build:
+      context: ./services/ocr
+    container_name: ocr-service
+    environment:
+      PORT: 8081
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8081/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - capstone-net
+
+  search-service:
+    build:
+      context: ./services/search
+    container_name: search-service
+    environment:
+      PORT: 8082
+      OCR_URL: http://ocr-service:8081
+    depends_on:
+      ocr-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8082/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - capstone-net
+
+networks:
+  capstone-net:
+    driver: bridge

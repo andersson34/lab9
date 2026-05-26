@@ -1,0 +1,21 @@
+services:
+  ocr-service:
+    environment:
+      NODE_ENV: test
+
+  search-service:
+    environment:
+      NODE_ENV: test
+      OCR_URL: http://ocr-service:8081
+
+  test-runner:
+    build:
+      context: ./tests/e2e
+    container_name: test-runner
+    environment:
+      SEARCH_URL: http://search-service:8082
+    depends_on:
+      search-service:
+        condition: service_healthy
+    networks:
+      - capstone-net

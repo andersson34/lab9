@@ -1,0 +1,16 @@
+services:
+  ocr-service:
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./services/ocr:/app
+      - /app/node_modules
+    command: npm run dev
+
+  search-service:
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./services/search:/app
+      - /app/node_modules
+    command: npm run dev

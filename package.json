@@ -1,0 +1,14 @@
+{
+  "name": "lab9-capstone",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "tests/e2e"
+  ],
+  "scripts": {
+    "test:unit": "npm run test:unit -w @capstone/ocr && npm run test:unit -w @capstone/search",
+    "test:contract": "npm run test:contract -w @capstone/search",
+    "test:e2e": "npm run test:e2e -w @capstone/e2e"
+  }
+}
